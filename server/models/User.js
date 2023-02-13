@@ -18,8 +18,32 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minlength: 5,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: value => value.toDateString()
+  },
+  friends: [{
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }],
+  challenges: [{
+    type: Schema.Types.ObjectId,
+    ref: 'challenge'
+  }],
+  games: [{
+    type: Schema.Types.ObjectId,
+    ref: 'game'
+  }],
+},
+  {
+    toJSON: {
+      getters: true
+    },
+    id: false
   }
-});
+);
 
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
