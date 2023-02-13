@@ -24,6 +24,10 @@ const userSchema = new Schema({
     default: Date.now,
     get: value => value.toDateString()
   },
+  friendRequests: [{
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }],
   friends: [{
     type: Schema.Types.ObjectId,
     ref: 'user'
