@@ -4,11 +4,11 @@ const challengeSchema = new Schema(
     {
         challengerId: {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'user',
         },
         inviteeId: {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'user',
         },
         word:{
             type: String,
@@ -20,3 +20,7 @@ const challengeSchema = new Schema(
         }
     }
 )
+
+const Challenge = model('Challenge', challengeSchema);
+
+module.exports = Challenge;
