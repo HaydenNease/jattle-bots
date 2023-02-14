@@ -2,10 +2,10 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
-    _id: ID!
-    username: String!
-    email: String!
-    password: String! 
+    _id: ID
+    username: String
+    email: String
+    password: String 
     createdAt: String   
     friends: [User]
     friendRequests: [User]
@@ -14,23 +14,23 @@ const typeDefs = gql`
   }
 
   type Challenge {
-    _id: ID!
+    _id: ID
     challengerId: User
     inviteeId: User
-    word: String!
-    status: Int!
+    word: String
+    status: Int
   }
 
   type Request {
-    _id: ID!
-    requestor: ID!,
-    recepient: ID!,
+    _id: ID
+    requestor: ID
+    recipient: ID
     status: Int
   }
 
   type Game {
-    _id: ID!
-    word: String!
+    _id: ID
+    word: String
     guess1: String
     guess2: String
     guess3: String
@@ -40,7 +40,7 @@ const typeDefs = gql`
   }
 
   type Auth {
-    token: ID!
+    token: ID
     user: User
   }
 
@@ -64,15 +64,14 @@ const typeDefs = gql`
     ): Auth
 
     requestFriend(
-      friendId:ID!,
-      status: Int
-      ): User
+      recipient: ID!
+      ): Request
     
     updateFriendStatus(
       friendId:ID!
       status: Int
-    ):User
-
+    ): Request
+    
     addChallenge(
       challenger:ID!, 
       invitee:ID!, 
