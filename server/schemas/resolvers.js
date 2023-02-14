@@ -1,5 +1,5 @@
-const { AuthenticationError } = require('apollo-server-express'); 
-const { User } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
+const { User, Challenge, Game, Request } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -63,14 +63,26 @@ const resolvers = {
       return { token, user };
     },
 
-    requestFriend: async (_, { friendId, status }, context) => {
-      const userAddFriend = await User.findOneAndUpdate(
-        {}
-      )
+    requestFriend: async (_, { recipient }, context) => {
+      const request = await Request.create(
+        {
+          requestor: context.user._id,
+          recipient,
+        }
+      );
+      await User.findOneAndUpdate(
+        { _id: recipient }, 
+        { $addToSet: {friendRequests: request._id} }
+      );
+      await User.findOneAndUpdate(
+        { _id: context.user._id }, 
+        { $addToSet: {friendRequests: request._id} }
+      );
+      return request;
+    },
 
-      const friendAddUser = await User.findOneAndUpdate(
-        {}
-      )
+    updateFriendStatus: async (_, { friendId, status }, context) => {
+      const request = await Request.findOneAndUpdate
     }
   }
 };

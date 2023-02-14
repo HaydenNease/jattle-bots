@@ -1,18 +1,18 @@
 const { Schema, model } = require('mongoose');
 
-const requestSchema = newSchema({
+const requestSchema = new Schema({
   requestor: {
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: true
   },
-  recepient: {
+  recipient: {
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: true
   },
   status: {
-    type: Int,
+    type: Number,
     default: 0,
     required: true
   }
@@ -21,5 +21,4 @@ const requestSchema = newSchema({
 
 const Request = model('request', requestSchema);
 
-
-model.exports = Request;
+module.exports = Request;
