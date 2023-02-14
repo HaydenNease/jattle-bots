@@ -15,12 +15,12 @@ const challengeSchema = new Schema(
             required: true
         },
         status: {
-            type: Integer,
+            type: Number,
             required: true
         }
     }
 )
 
-const Challenge = model('Challenge', challengeSchema);
+const Challenge = model('challenge', challengeSchema);
 
 module.exports = Challenge;

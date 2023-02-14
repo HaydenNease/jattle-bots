@@ -5,11 +5,12 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
-    password: String!
-    createdAt: Date
+    password: String! 
+    createdAt: String   
     friends: [User]
+    friendRequests: [User]
     challenges: [Challenge]
-    games: [Game]
+    
   }
 
   type Challenge {
@@ -18,6 +19,24 @@ const typeDefs = gql`
     inviteeId: User
     word: String!
     status: Int!
+  }
+
+  type Request {
+    _id: ID!
+    requestor: ID!,
+    recepient: ID!,
+    status: Int
+  }
+
+  type Game {
+    _id: ID!
+    word: String!
+    guess1: String
+    guess2: String
+    guess3: String
+    guess4: String
+    guess5: String
+    guess6: String
   }
 
   type Auth {
@@ -48,7 +67,12 @@ const typeDefs = gql`
       friendId:ID!,
       status: Int
       ): User
-      
+    
+    updateFriendStatus(
+      friendId:ID!
+      status: Int
+    ):User
+
     addChallenge(
       challenger:ID!, 
       invitee:ID!, 
