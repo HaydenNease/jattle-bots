@@ -75,13 +75,11 @@ const typeDefs = gql`
     ): String
 
     ignoreFriendRequest(
-      friendId:ID!
+      _id:ID!
     ): String
     
     createChallenge(
-      challengerId:ID!, 
       inviteeId:ID!, 
-      status:Int!,
       challengerWord: String!
     ): String 
 
