@@ -10,14 +10,25 @@ const challengeSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'user',
         },
-        word:{
+        status: {
+            type: Number,
+            default: 0,
+            required: true
+        },
+        challengerWord:{
             type: String,
             required: true
         },
-        status: {
-            type: Number,
+        inviteeWord:{
+            type: String,
             required: true
-        }
+        },
+        challengerGuesses: [{
+            type: String
+        }],
+        inviteeGuesses: [{
+            type: String
+        }]
     }
 )
 

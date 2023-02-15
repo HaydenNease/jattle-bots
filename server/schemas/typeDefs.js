@@ -17,8 +17,11 @@ const typeDefs = gql`
     _id: ID
     challengerId: User
     inviteeId: User
-    word: String
     status: Int
+    challengerWord: String
+    inviteeWord: String
+    challengerGuesses: [String]
+    inviteeGuesses: [String]
   }
 
   type Request {
@@ -67,16 +70,30 @@ const typeDefs = gql`
       recipient: ID!
       ): Request
     
-    updateFriendStatus(
+    acceptFriendRequest(
+      _id:ID!
+      status: Int
+    ): Request
+
+    denyFriendRequest(
       friendId:ID!
       status: Int
     ): Request
     
     addChallenge(
-      challenger:ID!, 
-      invitee:ID!, 
-      status:Int!, 
+      challengerId:ID!, 
+      inviteeId:ID!, 
+      status:Int!,
+      challengerWord: String!
     ): Challenge 
+
+    challengeResponse(
+      _id: ID!
+      challengerId:ID!,
+      inviteeId:ID!
+      status:Int!
+      inviteeWord: String!
+    ): Challenge
   }
 `;
 
