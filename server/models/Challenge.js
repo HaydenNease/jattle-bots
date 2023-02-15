@@ -20,8 +20,7 @@ const challengeSchema = new Schema(
             required: true
         },
         inviteeWord:{
-            type: String,
-            required: true
+            type: String
         },
         challengerGuesses: [{
             type: String
