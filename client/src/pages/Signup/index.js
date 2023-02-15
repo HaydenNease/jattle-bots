@@ -41,8 +41,8 @@ const Signup = () => {
     if (data) {
       return (
       <p>
-        Success! You may now head{' '}
-        <Link to="/">back to the homepage.</Link>
+        Success! You may now view{' '}
+        <Link to="/">your dashboard.</Link>
       </p>
       )
     } 

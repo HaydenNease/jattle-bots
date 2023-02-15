@@ -39,3 +39,24 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const FIND_USERS = gql`
+query findAllUsers {
+  users {
+    _id
+    username
+    friends {
+      username
+    }
+    friendRequests {
+      _id
+    }
+    challenges {
+      _id
+      challengerWord
+      inviteeWord
+      status
+    }
+  }
+  }
+}`;
