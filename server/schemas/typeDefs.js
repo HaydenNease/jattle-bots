@@ -66,15 +66,15 @@ const typeDefs = gql`
       password:String!
     ): Auth
 
-    requestFriend(
+    createFriendRequest(
       recipient: ID!
-      ): Request
+      ): String
     
     acceptFriendRequest(
       _id:ID!
     ): String
 
-    denyFriendRequest(
+    ignoreFriendRequest(
       friendId:ID!
     ): String
     
@@ -83,15 +83,16 @@ const typeDefs = gql`
       inviteeId:ID!, 
       status:Int!,
       challengerWord: String!
-    ): Challenge 
+    ): String 
 
-    challengeResponse(
-      _id: ID!
-      challengerId:ID!,
-      inviteeId:ID!
-      status:Int!
+    acceptChallenge(
+      _id: ID!,      
       inviteeWord: String!
-    ): Challenge
+    ): String
+     
+    ignoreChallenge(
+      _id: ID!
+    ): String
   }
 `;
 

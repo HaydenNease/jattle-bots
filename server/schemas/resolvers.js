@@ -63,7 +63,7 @@ const resolvers = {
       return { token, user };
     },
 
-    requestFriend: async (_, { recipient }, context) => {
+    createFriendRequest: async (_, { recipient }, context) => {
       const request = await Request.insertOne(
         {
           requestor: context.user._id,
@@ -78,7 +78,7 @@ const resolvers = {
         { _id: context.user._id },
         { $addToSet: { friendRequests: request._id } }
       );
-      return request;
+      return 'Friend Request Sent';
     },
 
     acceptFriendRequest: async (_, { _id }, context) => {
@@ -103,7 +103,7 @@ const resolvers = {
       return 'Friend Added';
     },
 
-    denyFriendRequest: async (_, { _id }, context) => {
+    ignoreFriendRequest: async (_, { _id }, context) => {
       const request = await Request.findOneAndUpdate(
         { _id },
         { $set: { status: 2 }}
@@ -141,15 +141,28 @@ const resolvers = {
           $addToSet:
             { challenges: challenge._id }
         }
-      );
+      )
+        return 'Challenge Created';
     },
 
-    challengeResponse: async (_, { _id, status, inviteeWord }, context) => {
-      const response = await Challenge.findOneAndUpdate(
-        { _id: challenge_id },
-        { $addToSet: { inviteeWord } },
+    acceptChallenge: async (_, { _id, inviteeWord }) => {
+      await Challenge.findOneAndUpdate(
+        { _id },
+        { 
+          $set: { status: 1 },
+          $addToSet: { inviteeWord }
+        },
       )
+        return 'Starting Game...';
     },
+
+    ignoreChallenge: async (_, { _id }) => {
+      await Challenge.findOneAndUpdate(
+        { _id },
+        { $set: { status: 2 }}
+      )
+        return 'Challenge Ignored';
+    }
   }
 };
 
