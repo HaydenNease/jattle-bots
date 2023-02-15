@@ -41,7 +41,7 @@ const resolvers = {
 
   Mutation: {
     addUser: async (_, args) => {
-      const user = await User.create(args);
+      const user = await User.insertOne(args);
       const token = signToken(user);
       return { token, user };
     },
@@ -64,7 +64,7 @@ const resolvers = {
     },
 
     requestFriend: async (_, { recipient }, context) => {
-      const request = await Request.create(
+      const request = await Request.insertOne(
         {
           requestor: context.user._id,
           recipient,
@@ -81,9 +81,46 @@ const resolvers = {
       return request;
     },
 
-    updateFriendStatus: async (_, { friendId, status }, context) => {
-      const request = await Request.findOneAndUpdate
-    }
+    acceptFriendRequest: async (_, { _id }, context) => {
+      const request = await Request.findOne(
+        { _id: request._id},
+      );
+      await User.findOneAndUpdate(
+        { _id: context.user._id},
+        { $addToSet: {friends: request.requestor} }
+      );
+      await User.findOneAndUpdate(
+        { _id: request.requestor},
+        { $addToSet: {friends: context.user._id} }
+      )
+    },
+
+    addChallenge: async (_, { inviteeId, challengerWord }, context) => {
+      const challenge = await Challenge.insertOne(
+        {
+          challengerId: context.user._id,
+          inviteeId,
+          challengerWord
+        }
+      );
+    await User.findOneAndUpdate(
+      { _id: context.user._id },
+      { $addToSet:
+      { challenges: challenge._id } }
+    );
+    await User.findOneAndUpdate(
+      { _id: inviteeId },
+      { $addToSet:
+      {challenges: challenge._id } }
+    );
+    },
+
+    challengeResponse: async (_, { _id, status, inviteeWord }, context) => {
+      const response = await Challenge.findOneAndUpdate(
+        { _id: challenge_id },
+        { $addToSet: { inviteeWord } },
+      )
+    },
   }
 };
 
