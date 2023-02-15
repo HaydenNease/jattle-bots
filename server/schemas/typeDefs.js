@@ -72,15 +72,13 @@ const typeDefs = gql`
     
     acceptFriendRequest(
       _id:ID!
-      status: Int
-    ): Request
+    ): String
 
     denyFriendRequest(
       friendId:ID!
-      status: Int
-    ): Request
+    ): String
     
-    addChallenge(
+    createChallenge(
       challengerId:ID!, 
       inviteeId:ID!, 
       status:Int!,

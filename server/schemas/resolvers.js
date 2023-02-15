@@ -71,31 +71,56 @@ const resolvers = {
         }
       );
       await User.findOneAndUpdate(
-        { _id: recipient }, 
-        { $addToSet: {friendRequests: request._id} }
+        { _id: recipient },
+        { $addToSet: { friendRequests: request._id } }
       );
       await User.findOneAndUpdate(
-        { _id: context.user._id }, 
-        { $addToSet: {friendRequests: request._id} }
+        { _id: context.user._id },
+        { $addToSet: { friendRequests: request._id } }
       );
       return request;
     },
 
     acceptFriendRequest: async (_, { _id }, context) => {
-      const request = await Request.findOne(
-        { _id: request._id},
+      const request = await Request.findOneAndUpdate(
+        { _id },
+        { $set: { status: 1 }}
+        );
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        {
+          $addToSet: { friends: request.requestor },
+          $pull: { friendRequests: request._id }
+        }
       );
       await User.findOneAndUpdate(
-        { _id: context.user._id},
-        { $addToSet: {friends: request.requestor} }
-      );
-      await User.findOneAndUpdate(
-        { _id: request.requestor},
-        { $addToSet: {friends: context.user._id} }
+        { _id: request.requestor },
+        {
+          $addToSet: { friends: context.user._id },
+          $pull: { friendRequests: request._id }
+        }
       )
+      return 'Friend Added';
     },
 
-    addChallenge: async (_, { inviteeId, challengerWord }, context) => {
+    denyFriendRequest: async (_, { _id }, context) => {
+      const request = await Request.findOneAndUpdate(
+        { _id },
+        { $set: { status: 2 }}
+        );
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { friendRequests: request._id }}
+      );
+      await User.findOneAndUpdate(
+        { _id: request.requestor },
+        { $pull: { friendRequests: request._id }}
+      )
+      return 'Request Removed';
+
+    },
+
+    createChallenge: async (_, { inviteeId, challengerWord }, context) => {
       const challenge = await Challenge.insertOne(
         {
           challengerId: context.user._id,
@@ -103,16 +128,20 @@ const resolvers = {
           challengerWord
         }
       );
-    await User.findOneAndUpdate(
-      { _id: context.user._id },
-      { $addToSet:
-      { challenges: challenge._id } }
-    );
-    await User.findOneAndUpdate(
-      { _id: inviteeId },
-      { $addToSet:
-      {challenges: challenge._id } }
-    );
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        {
+          $addToSet:
+            { challenges: challenge._id }
+        }
+      );
+      await User.findOneAndUpdate(
+        { _id: inviteeId },
+        {
+          $addToSet:
+            { challenges: challenge._id }
+        }
+      );
     },
 
     challengeResponse: async (_, { _id, status, inviteeWord }, context) => {
