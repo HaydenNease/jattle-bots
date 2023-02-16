@@ -18,6 +18,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Game from './pages/Game';
 import Friends from './pages/Dashboard/Friends';
+import Dashboard from './pages/Dashboard';
 
 
 // Construct our main GraphQL API endpoint
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />
+      },
       {
         path: "/friends",
         element: <Friends />,

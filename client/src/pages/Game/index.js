@@ -32,8 +32,6 @@ const fetchWord = (word) => {
 function Game() {
   const wordOfTheDay = "money";
 
-  const { loading, error, data } = useQuery(QUERY_ME)
-
   const [guesses, setGuesses] = useState({ ...newGame });
   const [markers, setMarkers] = useState({
     0: Array.from({ length: wordLength }).fill(""),

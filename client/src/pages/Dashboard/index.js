@@ -10,12 +10,7 @@ import NavTabs from '../../components/NavTabs';
 
 export default function Dashboard() {
   const [currentPage, setCurrentPage] = useState('Landing');
-  const { loading, error, data } = useQuery(QUERY_ME, {
-    variables: {
-      id: 'peepee poo poo'
-    }
-  }); 
-  
+  const { loading, error, data } = useQuery(QUERY_ME); 
 
   // // This method is checking to see what the value of `currentPage` is. Depending on the value of currentPage, we return the corresponding component to render.
   // const renderPage = () => {
@@ -35,10 +30,9 @@ export default function Dashboard() {
       <Container className="bg-white border-dark border-0 rounded">
         <Row>
           <Col className='container-fluid'>
-            sum idk lol
+            {data?.me.username}
           </Col>
         </Row>
-        <NavTabs currentPage={currentPage} handlePageChange={handlePageChange} />
       </Container>
     </div>
   );
