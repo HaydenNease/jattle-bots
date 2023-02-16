@@ -27,6 +27,8 @@ const resolvers = {
     },
     users: async () => {
       return await User.find({})
+        .populate('friends')
+        .populate('challenges');
     },
     user: async (_, args) => {
       return await User.findOne({ _id: args.id });
