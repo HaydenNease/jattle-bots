@@ -14,14 +14,11 @@ import { setContext } from '@apollo/client/link/context';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Users from './pages/Users';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import Profile from './pages/Profile';
-// import Game from './pages/Game';
-import Dashboard from './pages/Dashboard';
+import Game from './pages/Game';
+import Friends from './pages/Dashboard/Friends';
 
-import Footer from './components/Footer';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -54,13 +51,13 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/game',
-        element: <div>code bois 2023</div>
+        path: "/friends",
+        element: <Friends />,
       },
-      // {
-      //   path: "/friends",
-      //   element: <Friends />,
-      // }
+      {
+        path: "/game",
+        element: <Game />
+      }
     ]
   },
   {

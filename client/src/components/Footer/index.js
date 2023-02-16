@@ -4,7 +4,7 @@ import { redirect } from 'react-router-dom';
 
 import Auth from '../../utils/auth';
 
-function Navbar() {
+function Footer() {
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -36,4 +36,4 @@ function Navbar() {
   )
 }
 
-export default Navbar;
+export default Footer;
