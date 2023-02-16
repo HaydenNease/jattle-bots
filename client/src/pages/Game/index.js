@@ -48,7 +48,7 @@ import {
       .catch((err) => console.log("err:", err));
   };
   
-  function App() {
+  function Game() {
     const wordOfTheDay = "money";
   
     const [guesses, setGuesses] = useState({ ...newGame });

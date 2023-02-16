@@ -12,7 +12,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
-import Game from './pages/Game';
+// import Game from './pages/Game';
 import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -53,8 +53,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/me" element={<Profile />} />
             <Route path="/users/:id" element={<Profile />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            
+            <Route path="/dashboard" element={<Dashboard />} />            
           </Routes>
           <Footer />
         </>
