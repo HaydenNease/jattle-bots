@@ -1,13 +1,12 @@
-// Node Modules
 import React, { useRef } from 'react';
 import { useQuery, useLazyQuery } from '@apollo/client';
-// Utilities
-import Auth from '../utils/auth';
-import { QUERY_USERS, SEARCH_USERS } from '../utils/queries';
-// Components
-import UserList from '../components/UserList';
 
-const Home = () => {
+import Auth from '../../utils/auth';
+import { QUERY_USERS, SEARCH_USERS } from '../../utils/queries';
+
+import UserList from '../../components/UserList';
+
+const Users = () => {
   const { loading, data } = useQuery(QUERY_USERS);
   const [searchUsers, { data: searchData }] = useLazyQuery(SEARCH_USERS);
   const users = data?.users || [];
@@ -62,4 +61,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Users;

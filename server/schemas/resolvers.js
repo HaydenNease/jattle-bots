@@ -27,17 +27,17 @@ const resolvers = {
     },
     users: async () => {
       return await User.find({})
-        .populate('friends')
-        .populate('challenges');
     },
     user: async (_, args) => {
-      return User.findOne({ _id: args.id });
+      return await User.findOne({ _id: args.id });
     },
-    me: async (_, _args, context) => {
+    me: async (_, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return await User.findOne({ _id: context.user._id });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      if (!context) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
     },
   },
 

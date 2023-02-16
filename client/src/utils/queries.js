@@ -31,32 +31,42 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
+  query user {
     me {
       _id
       username
-      email
+      challenges {
+        _id
+        inviteeId {
+          username
+        }
+      }
+      friendRequests {
+      _id
+      }
+      friends {
+        _id
+      }
     }
   }
 `;
 
-export const FIND_USERS = gql`
-query findAllUsers {
-  users {
-    _id
-    username
-    friends {
-      username
-    }
-    friendRequests {
-      _id
-    }
-    challenges {
-      _id
-      challengerWord
-      inviteeWord
-      status
-    }
-  }
-  }
-}`;
+// export const FIND_USERS = gql`
+// query findAllUsers {
+//   users {
+//     _id
+//     username
+//     friends {
+//       username
+//     }
+//     friendRequests {
+//       _id
+//     }
+//     challenges {
+//       _id
+//       challengerWord
+//       inviteeWord
+//       status
+//     }
+//   }  
+// }`;
