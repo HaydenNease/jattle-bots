@@ -91,6 +91,10 @@ const typeDefs = gql`
     ignoreChallenge(
       _id: ID!
     ): String
+
+    archiveChallenge(
+    _id: ID!
+    ): String
   }
 `;
 

@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { useQuery } from '@apollo/client';
 
-import { useMutation } from '@apollo/client';
-import { ADD_FRIEND, DECLINE_FRIEND, ACCEPT_FRIEND, ADD_CHALLENGE, DECLINE_CHALLENGE } from '../utils/mutations';
+
+import { QUERY_ME } from '../../utils/queries';
+import NavTabs from '../../components/NavTabs';
 
 export default function Dashboard() {
-  const [currentPage, setCurrentPage] = useState('Play');
+  const [currentPage, setCurrentPage] = useState('Landing');
+  const { loading, error, data } = useQuery(QUERY_ME); 
 
-  // This method is checking to see what the value of `currentPage` is. Depending on the value of currentPage, we return the corresponding component to render.
-  const renderPage = () => {
-    if (currentPage === 'Friends') {
-      return <Friends />;
-    }
-    if (currentPage === 'Play') {
-      return <Play />;
-    }
-    return <History />;    
-  };
+  // // This method is checking to see what the value of `currentPage` is. Depending on the value of currentPage, we return the corresponding component to render.
+  // const renderPage = () => {
+  //   if (currentPage === 'Friends') {
+  //     return <Friends />;
+  //   }
+  //   if (currentPage === 'Landing') {
+  //     return <Landing />;
+  //   }
+  //   return <History />;    
+  // };
 
   const handlePageChange = (page) => setCurrentPage(page);
 
   return (
-    <div className="bg-dark ">
-      {/* We are passing the currentPage from state and the function to update it */}
+    <div className="bg-dark ">    
       <Container className="bg-white border-dark border-0 rounded">
         <Row>
           <Col className='container-fluid'>
-            {/* Here we are calling the renderPage method which will return a component  */}
-            {renderPage()}
+            {data?.me.username}
           </Col>
-        <NavTabs currentPage={currentPage} handlePageChange={handlePageChange} />
         </Row>
       </Container>
     </div>

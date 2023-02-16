@@ -27,17 +27,17 @@ const resolvers = {
     },
     users: async () => {
       return await User.find({})
-        .populate('friends')
-        .populate('challenges');
     },
     user: async (_, args) => {
-      return User.findOne({ _id: args.id });
+      return await User.findOne({ _id: args.id });
     },
-    me: async (_, _args, context) => {
+    me: async (_, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return await User.findOne({ _id: context.user._id });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      if (!context) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
     },
   },
 
@@ -150,7 +150,8 @@ const resolvers = {
     acceptChallenge: async (_, { _id, inviteeWord }) => {
       await Challenge.findOneAndUpdate(
         { _id },
-        {$set: { status: 1, inviteeWord }
+        {
+          $set: { status: 1, inviteeWord }
         },
       )
       return 'Starting Game...';
@@ -162,14 +163,21 @@ const resolvers = {
         { $set: { status: 2 } }
       );
       await User.findOneAndUpdate(
-        { _id: challenge.challengerId},
-        { $pull: { challenges: _id }}
+        { _id: challenge.challengerId },
+        { $pull: { challenges: _id } }
       );
       await User.findOneAndUpdate(
-        { _id: challenge.inviteeId},
-        { $pull: { challenges: _id }}
+        { _id: challenge.inviteeId },
+        { $pull: { challenges: _id } }
       )
       return 'Challenge Ignored';
+    },
+
+    archiveChallenge: async (_, { _id, challengerId, inviteeId }) => {
+      await Challenge.findOneAndUpdate(
+        { _id },
+        { $set: { status: 3 } }
+      );
     }
   }
 };

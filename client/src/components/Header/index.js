@@ -1,18 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../Navbar';
+import { redirect } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header>
-      <div>
-        <Link to="/">
-          <h1>User List</h1>
-        </Link>
-      </div>
-      <div>
-        <p>Simple App to View Users.</p>
-        <Navbar />
+      <div
+        onClick={() => redirect("/")}>
+          <h1>Welcome to JATTLE-BOTS</h1>
       </div>
     </header>
   );
