@@ -42,10 +42,19 @@ export const QUERY_ME = gql`
         }
       }
       friendRequests {
-      _id
+        _id
+        requestor {
+          _id
+          username
+        }
+        recipient {
+          _id
+          username
+        }
       }
       friends {
         _id
+        username
       }
     }
   }

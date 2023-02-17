@@ -35,7 +35,28 @@ const resolvers = {
     },
     me: async (_, args, context) => {
       if (context.user) {
-        return await User.findOne({ _id: context.user._id });
+        const user = await User.findOne({ _id: context.user._id })
+          .populate({
+            path: 'friendRequests',
+            model: 'request',
+            populate: {
+              path: 'requestor',
+              model: 'user',
+              select: 'username'
+            }
+          })
+          .populate({
+            path: 'friendRequests',
+            model: 'request',
+            populate: {
+              path: 'recipient',
+              model: 'user',
+              select: 'username'
+            }
+          })
+          .populate('friends','username');
+          console.log(user.friendRequests);
+          return user;
       }
       if (!context) {
         throw new AuthenticationError('You need to be logged in!');

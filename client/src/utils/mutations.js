@@ -26,7 +26,7 @@ export const ADD_USER = gql`
 
 export const ADD_FRIEND = gql`
   mutation createFriendRequest($recipient: ID!) {
-  createFriendRequest(recipient: $recipient)
+    createFriendRequest(recipient: $recipient)
 }`;
 
 export const DECLINE_FRIEND = gql`
