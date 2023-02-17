@@ -60,18 +60,18 @@ const Profile = () => {
                 <Row>
                     <Col className='text-center'>
                         <button 
-                            className={currentTab==="Landing"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
-                            onClick={()=>setCurrentTab("Landing")}
-                        >
-                            Landing
-                        </button>
-                    </Col>
-                    <Col className='text-center'>
-                        <button 
                             className={currentTab==="Friends"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
                             onClick={()=>setCurrentTab("Friends")}
                         >
                             Friends
+                        </button>
+                    </Col>
+                    <Col className='text-center'>
+                        <button 
+                            className={currentTab==="Landing"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
+                            onClick={()=>setCurrentTab("Landing")}
+                        >
+                            Landing
                         </button>
                     </Col>
                     <Col className='text-center'>
