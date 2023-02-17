@@ -1,3 +1,19 @@
-# Apollo Mern Mongo
+# Jattle-Bots
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Boilerplate code to setup a MERN Apollo Server/Client Application using a Mongo database
+  ## Description of Project
+  Jattle-Bots is your opportunity to challenge your friends to games of Wordle! Register an account, add some friends, send some words, and solve their puzzles.
+
+  ## Table of Contents
+  - [Installation Instructions](#installation-instructions)
+  - [License](#license)
+  - [Questions](#questions)
+   
+  ## Installation Instructions
+  Run to the depoloyed website!
+    
+  ## License
+  MIT
+
+  ## Questions
+  Please feel free to reach out to me directly at hayden.nease@gmail.com, or you can find this project and others at my GitHub account, https://github.com/HaydenNease.
