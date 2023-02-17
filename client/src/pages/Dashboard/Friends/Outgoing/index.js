@@ -11,11 +11,12 @@ const Outgoing = ({data}) => {
                 return <li key={f._id}>
                     {f.recipient.username}
                     {/* Add cancel friend functionality, use cancel friend mutation with f._id */}
+                    <button className="btn btn-success ms-4">Accept</button>
                     <button className="btn btn-danger ms-4">Cancel</button>
                 </li>
             })}
         </ul>:
-        <div>No friends</div>
+        <div>No outgoing friend requests</div>
     }
   </div>;
 }

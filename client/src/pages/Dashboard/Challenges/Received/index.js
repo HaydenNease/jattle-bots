@@ -1,17 +1,17 @@
 import React from "react";
-import { ACCEPT_FRIEND, DECLINE_FRIEND } from "../../../../utils/mutations";
+import { ACCEPT_CHALLENGE, DECLINE_CHALLENGE } from "../../../../utils/mutations";
 
-const Incoming = ({data}) => {
+const Received = ({data}) => {
     console.log(data);
     return <div className="mt-4">
-    <h2 className="text-center">Incoming Friend Requests</h2>
+    <h2 className="text-center">Incoming Challenges</h2>
     {
-        data.me && data.me.friendRequests ? <ul>
-            {data.me.friendRequests
-                .filter(f=>f.recipient._id === data.me._id)
+        data.me && data.me.challenges ? <ul>
+            {data.me.challenges
+                .filter(f=>f.invitee._id === data.me._id)
                 .map((f)=>{
                 return <li key={f._id}>
-                    {f.requestor.username}
+                    {f.challenger.username}
                     {/* Add confirm friend functionality, use confirm friend mutation with f._id */}
                     <button className="btn btn-success ms-4">Confirm</button>
                     {/* Add cancel friend functionality, use cancel friend mutation with f._id */}
@@ -19,9 +19,9 @@ const Incoming = ({data}) => {
                 </li>
             })}
         </ul>:
-        <div>No friends</div>
+        <div>No challenges awaiting you</div>
     }
   </div>;
 }
 
-export default Incoming;
+export default Received;
