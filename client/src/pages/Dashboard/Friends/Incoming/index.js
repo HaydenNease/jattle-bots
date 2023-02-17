@@ -1,4 +1,5 @@
 import React from "react";
+import { ACCEPT_FRIEND, DECLINE_FRIEND } from "../../../../utils/mutations";
 
 const Incoming = ({data}) => {
     console.log(data);
