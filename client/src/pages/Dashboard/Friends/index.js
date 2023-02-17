@@ -27,7 +27,7 @@ export default function Friends({data}) {
   return <Row className='mt-4'>
   <Col className='text-center'>
       <button 
-          className='btn btn-primary'
+          className={friendsTab==="CurrentFriends"?'btn border border-2 border-primary rounded text-primary bg-light':'btn btn-primary'}
           onClick={()=>setFriendsTab("CurrentFriends")}
       >
           Friends
@@ -35,7 +35,7 @@ export default function Friends({data}) {
   </Col>
   <Col className='text-center'>
       <button 
-          className='btn btn-primary'
+          className={friendsTab==="Incoming"?'btn border border-2 border-primary rounded text-primary bg-light':'btn btn-primary'}
           onClick={()=>setFriendsTab("Incoming")}
       >
           Incoming
@@ -43,7 +43,7 @@ export default function Friends({data}) {
   </Col>
   <Col className='text-center'>
       <button 
-          className='btn btn-primary'
+          className={friendsTab==="Outgoing"?'btn border border-2 border-primary rounded text-primary bg-light':'btn btn-primary'}
           onClick={()=>setFriendsTab("Outgoing")}
       >
           Outgoing

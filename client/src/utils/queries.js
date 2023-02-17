@@ -37,9 +37,16 @@ export const QUERY_ME = gql`
       username
       challenges {
         _id
-        inviteeId {
+        challengerId {
+          _id
           username
         }
+        inviteeId {
+          _id
+          username
+        }
+        status
+        challengerWord
       }
       friendRequests {
         _id
