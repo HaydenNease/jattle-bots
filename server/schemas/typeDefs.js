@@ -8,7 +8,7 @@ const typeDefs = gql`
     password: String 
     createdAt: String   
     friends: [User]
-    friendRequests: [User]
+    friendRequests: [Request]
     challenges: [Challenge]
     
   }
@@ -26,8 +26,8 @@ const typeDefs = gql`
 
   type Request {
     _id: ID
-    requestor: ID
-    recipient: ID
+    requestor: User
+    recipient: User
     status: Int
   }
 

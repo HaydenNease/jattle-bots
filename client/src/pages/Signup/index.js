@@ -14,6 +14,10 @@ const Signup = () => {
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
+  if(Auth.loggedIn()){
+    window.location.replace('/');
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -32,6 +36,7 @@ const Signup = () => {
       });
 
       Auth.login(data.addUser.token);
+      window.location.replace("/")
     } catch (e) {
       console.error(e);
     }
@@ -83,6 +88,7 @@ const Signup = () => {
         {renderForm()}
         {error && <div>{error.message}</div>}
       </div>
+      <Link to="/login">Login</Link>
     </main>
   );
 };
