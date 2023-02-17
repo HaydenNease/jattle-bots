@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Extended = ({data}) => {
     return <div className="mt-4">
     <h2 className="text-center">Extended Challenges</h2>

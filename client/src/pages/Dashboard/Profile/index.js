@@ -60,7 +60,7 @@ const Profile = () => {
                 <Row>
                     <Col className='text-center'>
                         <button 
-                            className='btn btn-secondary'
+                            className={currentTab==="Landing"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
                             onClick={()=>setCurrentTab("Landing")}
                         >
                             Landing
@@ -68,7 +68,7 @@ const Profile = () => {
                     </Col>
                     <Col className='text-center'>
                         <button 
-                            className='btn btn-secondary'
+                            className={currentTab==="Friends"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
                             onClick={()=>setCurrentTab("Friends")}
                         >
                             Friends
@@ -76,7 +76,7 @@ const Profile = () => {
                     </Col>
                     <Col className='text-center'>
                         <button 
-                            className='btn btn-secondary'
+                            className={currentTab==="History"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
                             onClick={()=>setCurrentTab("History")}
                         >
                             History

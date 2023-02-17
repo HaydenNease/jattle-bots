@@ -54,7 +54,26 @@ const resolvers = {
               select: 'username'
             }
           })
-          .populate('friends','username');
+          .populate('friends','username')
+          .populate('challenges')
+          .populate({
+            path: 'challenges',
+            model: 'challenge',
+            populate: {
+              path: 'inviteeId',
+              model: 'user',
+              select: 'username'
+            }
+          })
+          .populate({
+            path: 'challenges',
+            model: 'challenge',
+            populate: {
+              path: 'challengerId',
+              model: 'user',
+              select: 'username'
+            }
+          })
           console.log(user.friendRequests);
           return user;
       }
