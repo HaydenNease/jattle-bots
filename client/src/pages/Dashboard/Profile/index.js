@@ -10,12 +10,9 @@ import { QUERY_ME, SEARCH_USERS } from '../../../utils/queries';
 import { ADD_FRIEND } from '../../../utils/mutations';
 
 const Profile = () => {
-    const [successMessage,setSuccessMessage] = useState("");
     const [currentTab, setCurrentTab] = useState('Landing');
-    const [search,setSearch] = useState('');
     const { loading, error, data } = useQuery(QUERY_ME); 
-    const [searchUsers, {loading: loadingUsers, data: searchedData}] = useLazyQuery(SEARCH_USERS);
-    const [addFriend, {loading: loadAdding, data: addingData}] = useMutation(ADD_FRIEND);
+   
 
     console.log(data)
     const renderPage = () => {
@@ -31,24 +28,6 @@ const Profile = () => {
         return <History data={data}/>;
     };
 
-    const onChange = (e) => {
-        setSearch(e.target.value)
-    }
-
-    const onSearch = async () => {
-        await searchUsers({
-            variables:  {term: search}
-        });
-    }
-
-    const sendRequest = async (_id) => {
-        const res = await addFriend({
-            variables: {recipient: _id}
-        });
-        setSuccessMessage(res.data.createFriendRequest);
-    }
-    
-    console.log(searchedData);
     return (
         <div className="bg-dark">
             <Container className="bg-white border-dark border-0 rounded">
@@ -56,8 +35,11 @@ const Profile = () => {
                     <Col className='container-fluid text-center'>
                         <h1>{data?.me.username}'s Profile</h1>
                     </Col>
-                </Row>
+                </Row>                
                 <Row>
+                    {renderPage()}
+                </Row>
+                <Row fixed="bottom">
                     <Col className='text-center'>
                         <button 
                             className={currentTab==="Friends"?'btn border border-2 border-secondary rounded text-secondary bg-light':'btn btn-secondary'}
@@ -82,32 +64,6 @@ const Profile = () => {
                             History
                         </button>
                     </Col>
-                </Row>
-                <Row className='p-2'>
-                    <input className='' placeholder='Search User' onChange={onChange}>
-                    
-                    </input>
-                    <div className='text-success'>{successMessage}</div>
-                    {
-                        searchedData && !loadingUsers && searchedData.searchUsers.map(d=>{
-                            return <Row key={d._id} className="m-auto my-2 p-2 border border-1 rounded">
-                                <Col>
-                                    Username: {d.username}
-                                </Col>
-                                <Col>
-                                    <button className='btn btn-success' onClick={()=>sendRequest(d._id)}>
-                                        Add Friend
-                                    </button>
-                                </Col>
-                            </Row>
-                        })
-                    }
-                    <button className='btn btn-info' onClick={onSearch}>
-                        Add User
-                    </button>
-                </Row>
-                <Row>
-                    {renderPage()}
                 </Row>
             </Container>
         </div>
