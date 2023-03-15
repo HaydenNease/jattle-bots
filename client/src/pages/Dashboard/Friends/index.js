@@ -35,18 +35,15 @@ export default function Friends({ data }) {
     });
     setSuccessMessage(res.data.createFriendRequest);
   }
-  const [friendsTab, setFriendsTab] = useState("CurrentFriends")
-  console.log(data)
-  const renderTab = () => {
-    switch (friendsTab) {
-      case "CurrentFriends":
-        return <CurrentFriends data={data} />;
-      case "Incoming":
-        return <Incoming data={data} />;
-      default:
-        return <Outgoing data={data} />;
-    }
+  console.log(data);
+  if (!data.friendRequests) {
+    console.log('No friend Requests');
   }
+  else {
+    console.log('Incoming friend request');
+  }
+  // console.log(data.friendRequests[0]); 
+  
   return (
     <div>
       <Row className='p-2'>
@@ -72,32 +69,14 @@ export default function Friends({ data }) {
           Search
         </button>
       </Row>
-      <Row className='mt-4'>
-        <Col className='text-center'>
-          <button
-            className={friendsTab === "CurrentFriends" ? 'btn border border-2 border-primary rounded text-primary bg-light' : 'btn btn-primary'}
-            onClick={() => setFriendsTab("CurrentFriends")}
-          >
-            Friends
-          </button>
-        </Col>
-        <Col className='text-center'>
-          <button
-            className={friendsTab === "Incoming" ? 'btn border border-2 border-primary rounded text-primary bg-light' : 'btn btn-primary'}
-            onClick={() => setFriendsTab("Incoming")}
-          >
-            Incoming
-          </button>
-        </Col>
-        <Col className='text-center'>
-          <button
-            className={friendsTab === "Outgoing" ? 'btn border border-2 border-primary rounded text-primary bg-light' : 'btn btn-primary'}
-            onClick={() => setFriendsTab("Outgoing")}
-          >
-            Outgoing
-          </button>
-        </Col>
-        {renderTab()}
+      <Row>
+        <Incoming data={data} />;
+      </Row>
+      <Row>
+        <Outgoing data={data} />;
+      </Row>
+      <Row>
+        <CurrentFriends data={data} />
       </Row>
     </div>
   )
